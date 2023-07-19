@@ -1,37 +1,28 @@
 import axios from "axios";
+import SpotifyUser from "../models/SpotifyUser";
 
-export const getFood = (query: string): Promise<any> => {
-  const headers = {
-    "x-app-id": "da2df0ba",
-    "x-app-key": "74f415d5045d41936dad3eaa2bd55cd9",
-  };
+export const currentUser = async (): Promise<any> => {
+  const hash = window.location.hash;
+  let token = window.localStorage.getItem("token") || "";
 
-  return axios
-    .get("https://trackapi.nutritionix.com/v2/search/instant", {
-      headers,
-      params: {
-        query: query,
+  if (!token && hash) {
+    token = hash
+      .substring(1)
+      .split("&")
+      .find((elem) => elem.startsWith("access_token"))!
+      .split("=")[1];
+
+    window.location.hash = "";
+    window.localStorage.setItem("token", token);
+  }
+
+  await axios
+    .get("https://api.spotify.com/v1/me", {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
     })
     .then((res) => {
-      return res.data;
-    }); // .data is specific to axios (returns JSON response)
-};
-
-export const getNutritionFacts = (nixItemID: string): Promise<any> => {
-  const headers = {
-    "x-app-id": "da2df0ba",
-    "x-app-key": "74f415d5045d41936dad3eaa2bd55cd9",
-  };
-
-  return axios
-    .get("https://trackapi.nutritionix.com/v2/search/item", {
-      headers,
-      params: {
-        nix_item_id: nixItemID,
-      },
-    })
-    .then((res) => {
-      return res.data;
-    }); // .data is specific to axios (returns JSON response)
+      return res;
+    });
 };

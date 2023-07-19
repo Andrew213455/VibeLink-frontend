@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import Header from "./components/Header";
 import Main from "./components/Main";
+import Home from "./components/Home";
 
 function App() {
   const CLIENT_ID = "+++++++++++++++++++++++++++++";
@@ -20,6 +21,7 @@ function App() {
       <Router>
         <Header />
         <Routes>
+          <Route path="/me" element={<Home />} />
           <Route path="/" element={<Main />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>

@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Main.css";
+import { currentUser } from "../services/spotifyApiService";
+import SpotifyUser from "../models/SpotifyUser";
 
 const Main = () => {
   const CLIENT_ID = "0ede3eaa5796463393ab9c3fbe8ae90d";
@@ -8,6 +11,14 @@ const Main = () => {
   const RESPONSE_TYPE = "token";
 
   const [token, setToken] = useState("");
+
+  const [user, setUser] = useState<SpotifyUser>({
+    display_name: "",
+    id: "",
+    images: { url: "", height: 0, width: 0 },
+    // uri: string;
+    followers: { href: "", total: 0 },
+  });
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -25,12 +36,17 @@ const Main = () => {
     }
 
     setToken(token);
+    currentUser().then((res) => {
+      setUser(res);
+      console.dir(res);
+    });
   }, []);
 
   const logout = () => {
     setToken("");
     window.localStorage.removeItem("token");
   };
+
   return (
     <div className="Main">
       {!token ? (
