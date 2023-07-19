@@ -11,6 +11,10 @@ import Header from "./components/Header";
 import Main from "./components/Main";
 
 function App() {
+  const CLIENT_ID = "+++++++++++++++++++++++++++++";
+  const REDIRECT_URI = "http://localhost:3000";
+  const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
+  const RESPONSE_TYPE = "token";
   return (
     <div className="App">
       <Router>
