@@ -1,7 +1,11 @@
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Main.css";
-import { currentUser } from "../services/spotifyApiService";
+import {
+  getCurrentUserProfile,
+  getToken,
+  searchArtist,
+} from "../services/spotifyApiService";
 import SpotifyUser from "../models/SpotifyUser";
 
 const Main = () => {
@@ -11,41 +15,46 @@ const Main = () => {
   const RESPONSE_TYPE = "token";
 
   const [token, setToken] = useState("");
-
-  const [user, setUser] = useState<SpotifyUser>({
-    display_name: "",
-    id: "",
-    images: { url: "", height: 0, width: 0 },
-    // uri: string;
-    followers: { href: "", total: 0 },
-  });
-
-  useEffect(() => {
-    const hash = window.location.hash;
-    let token = window.localStorage.getItem("token") || "";
-
-    if (!token && hash) {
-      token = hash
-        .substring(1)
-        .split("&")
-        .find((elem) => elem.startsWith("access_token"))!
-        .split("=")[1];
-
-      window.location.hash = "";
-      window.localStorage.setItem("token", token);
-    }
-
-    setToken(token);
-    currentUser().then((res) => {
-      setUser(res);
-      console.dir(res);
-    });
-  }, []);
+  const [profile, setProfile] = useState(null);
+  const [search, setSearch] = useState("");
+  const [artist, setArtist] = useState("");
 
   const logout = () => {
     setToken("");
     window.localStorage.removeItem("token");
   };
+
+  const submitHandler = (e: FormEvent) => {
+    e.preventDefault();
+    console.log(search);
+    searchArtist(search, "artist", token).then((res) => {
+      console.log(res);
+      setArtist(res.data);
+    });
+
+    setSearch("");
+  };
+
+  useEffect(() => {
+    getToken().then((res) => {
+      setToken(res);
+    });
+    getCurrentUserProfile(token).then((result) => {
+      console.log(result);
+    });
+    // const fetchData = async () => {
+    //   try {
+    //     const { data } = await getCurrentUserProfile(token);
+    //     setProfile(data);
+    //   } catch (e) {
+    //     console.error(e);
+    //   }
+    // };
+
+    // fetchData();
+  }, []);
+
+  console.log(token);
 
   return (
     <div className="Main">
@@ -58,6 +67,15 @@ const Main = () => {
       ) : (
         <button onClick={logout}>Logout</button>
       )}
+      <form onSubmit={submitHandler}>
+        <input
+          type="text"
+          placeholder="enter artist here"
+          onChange={(e) => setSearch(e.target.value)}
+          value={search}
+        ></input>
+        <button>Submit</button>
+      </form>
     </div>
   );
 };
