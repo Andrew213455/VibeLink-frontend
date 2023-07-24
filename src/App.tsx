@@ -10,6 +10,7 @@ import {
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Home from "./components/Home";
+import Search from "./components/Search";
 
 function App() {
   const CLIENT_ID = "+++++++++++++++++++++++++++++";
@@ -23,6 +24,7 @@ function App() {
         <Routes>
           <Route path="/me" element={<Home />} />
           <Route path="/" element={<Main />} />
+          <Route path="/search" element={<Search />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Router>

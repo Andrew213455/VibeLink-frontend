@@ -1,12 +1,12 @@
-import { FormEvent, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "./Main.css";
-import {
-  getCurrentUserProfile,
-  getToken,
-  searchArtist,
-} from "../services/spotifyApiService";
-import SpotifyUser from "../models/SpotifyUser";
+import { getToken } from "../services/spotifyApiService";
+import { code, fetchProfile, getAccessToken } from "../services/AuthCodePKCE";
+import { UserProfile } from "../models/SpotifyUser";
+
+import Home from "./Home";
+import { useSearchParams } from "react-router-dom";
+import Search from "./Search";
 
 const Main = () => {
   const CLIENT_ID = "0ede3eaa5796463393ab9c3fbe8ae90d";
@@ -14,70 +14,55 @@ const Main = () => {
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
 
+  const [userToken, setUserToken] = useState("");
   const [token, setToken] = useState("");
-  const [profile, setProfile] = useState(null);
-  const [search, setSearch] = useState("");
-  const [artist, setArtist] = useState("");
-
-  const logout = () => {
-    setToken("");
-    window.localStorage.removeItem("token");
-  };
-
-  const submitHandler = (e: FormEvent) => {
-    e.preventDefault();
-    console.log(search);
-    searchArtist(search, "artist", token).then((res) => {
-      console.log(res);
-      setArtist(res.data);
-    });
-
-    setSearch("");
-  };
+  const [profile, setProfile] = useState<UserProfile>({
+    country: "",
+    display_name: "",
+    email: "",
+    explicit_content: {
+      filter_enabled: false,
+      filter_locked: false,
+    },
+    external_urls: { spotify: "" },
+    followers: { href: "", total: 0 },
+    href: "",
+    id: "",
+    images: [
+      {
+        url: "",
+        height: 0,
+        width: 0,
+      },
+    ],
+    product: "",
+    type: "",
+    uri: "",
+  });
 
   useEffect(() => {
-    getToken().then((res) => {
-      setToken(res);
-    });
-    getCurrentUserProfile(token).then((result) => {
-      console.log(result);
-    });
-    // const fetchData = async () => {
-    //   try {
-    //     const { data } = await getCurrentUserProfile(token);
-    //     setProfile(data);
-    //   } catch (e) {
-    //     console.error(e);
-    //   }
-    // };
+    if (code !== null) {
+      getToken().then((res) => {
+        setToken(res);
+      });
+      fetchProfile(code).then((res) => {
+        setProfile(res);
+      });
+    }
+  }, [code]);
 
-    // fetchData();
-  }, []);
+  // useEffect(() => {
+  //   if (code !== null) {
+  //     getAccessToken(CLIENT_ID, code).then((res) => {
+  //       setUserToken(res);
+  //     });
+  //   }
+  // }, [token]);
 
-  console.log(token);
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get("search");
 
-  return (
-    <div className="Main">
-      {!token ? (
-        <a
-          href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
-        >
-          Login to Spotify
-        </a>
-      ) : (
-        <button onClick={logout}>Logout</button>
-      )}
-      <form onSubmit={submitHandler}>
-        <input
-          type="text"
-          placeholder="enter artist here"
-          onChange={(e) => setSearch(e.target.value)}
-          value={search}
-        ></input>
-        <button>Submit</button>
-      </form>
-    </div>
-  );
+  return <div className="Main">{query !== null ? <Search /> : <Home />}</div>;
 };
 
 export default Main;

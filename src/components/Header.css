@@ -1,0 +1,31 @@
+.Header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  background-color: black;
+  color: white;
+}
+
+.Header .header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+}
+
+.Header .header-bottom {
+  width: 100%;
+}
+
+.Header Form {
+  display: flex;
+  justify-content: center;
+}
+
+.Header .header-bottom input {
+  width: 80%;
+  padding: 10px;
+}

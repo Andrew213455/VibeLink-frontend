@@ -1,15 +1,7 @@
 import axios from "axios";
+import { UserProfile } from "../models/SpotifyUser";
 
 // let token = window.localStorage.getItem("token") || "";
-
-export const getCurrentUserProfile = (token: string) =>
-  axios
-    .get("https://api.spotify.com/v1/me", {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-    .then((res) => {
-      return res.data;
-    });
 
 export const searchArtist = (
   searchedArtist: string,
@@ -46,16 +38,16 @@ export const getToken = (): Promise<string> => {
     });
 };
 
-export const authorizeUser = (): Promise<any> => {
-  return axios
-    .get("https://accounts.spotify.com/authorize", {
-      params: {
-        client_id: "0ede3eaa5796463393ab9c3fbe8ae90d",
-        response_type: "code",
-        redirect_uri: "http://localhost:3000",
-      },
-    })
-    .then((res) => {
-      return res.data;
-    });
-};
+// export const authorizeUser = (): Promise<any> => {
+//   return axios
+//     .get("https://accounts.spotify.com/authorize", {
+//       params: {
+//         client_id: "0ede3eaa5796463393ab9c3fbe8ae90d",
+//         response_type: "code",
+//         redirect_uri: "http://localhost:3000",
+//       },
+//     })
+//     .then((res) => {
+//       return res.data;
+//     });
+// };
