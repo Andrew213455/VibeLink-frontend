@@ -1,7 +1,12 @@
 import { useSearchParams } from "react-router-dom";
 import "./Search.css";
+import { queryHelpers } from "@testing-library/react";
 
-const Search = () => {
+interface Props {
+  query: string | null;
+}
+
+const Search = ({ query }: Props) => {
   return <div className="Search">Search works</div>;
 };
 

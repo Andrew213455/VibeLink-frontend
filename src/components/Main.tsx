@@ -51,6 +51,10 @@ const Main = () => {
     }
   }, [code]);
 
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get("search");
+  console.log(query);
+
   // useEffect(() => {
   //   if (code !== null) {
   //     getAccessToken(CLIENT_ID, code).then((res) => {
@@ -59,10 +63,9 @@ const Main = () => {
   //   }
   // }, [token]);
 
-  const [searchParams] = useSearchParams();
-  const query = searchParams.get("search");
-
-  return <div className="Main">{query !== null ? <Search /> : <Home />}</div>;
+  return (
+    <div className="Main">{query ? <Search query={query} /> : <Home />}</div>
+  );
 };
 
 export default Main;

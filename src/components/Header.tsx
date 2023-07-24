@@ -3,7 +3,7 @@ import "./Header.css";
 import { getToken, searchArtist } from "../services/spotifyApiService";
 import { code, fetchProfile, getAccessToken } from "../services/AuthCodePKCE";
 import { UserProfile } from "firebase/auth";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 const Header = () => {
   const CLIENT_ID = "0ede3eaa5796463393ab9c3fbe8ae90d";
@@ -30,16 +30,17 @@ const Header = () => {
 
   const submitHandler = (e: FormEvent) => {
     e.preventDefault();
-    console.log(search);
+    navigate(`/search?${new URLSearchParams({ search: search })}`);
+    // console.log(search);
     searchArtist(search, "artist", token).then((res) => {
-      console.log(res);
+      // console.log(res);
       setArtist(res.data);
     });
-    navigate(`/search?${new URLSearchParams({ search: search })}`);
+
     setSearch("");
   };
 
-  console.log(token);
+  // console.log(token);
   return (
     <div className="Header">
       <div className="header-top">
