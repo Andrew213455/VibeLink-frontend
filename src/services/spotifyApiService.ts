@@ -3,14 +3,38 @@ import { UserProfile } from "../models/SpotifyUser";
 
 // let token = window.localStorage.getItem("token") || "";
 
-export const searchArtist = (
-  searchedArtist: string,
+export const getAlbums = (id: string, token: string) => {
+  return axios
+    .get(`https://api.spotify.com/v1/artists/${id}/albums`, {
+      params: { id: id, include_groups: "album" },
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((res) => {
+      return res.data;
+    });
+  //     7
+
+  // I think you won't be able to achieve it in single API call in Spotify. However there's an alternative:
+
+  // Request all albums of an artist (have a look here):
+
+  // https://api.spotify.com/v1/artists/%7Bid%7D/albums
+  // And then request the tracks of each album (have a look here):
+
+  // https://api.spotify.com/v1/albums/%7Bid%7D/tracks
+  // To avoid one request for each album, you can get multiple albums at once and when an album is requested, the tracks of such album will be returned in a paging object. You can pass the desired albums identifiers separated by , in the id query parameter to the following endpoint (have a look here):
+
+  // https://api.spotify.com/v1/albums
+};
+
+export const searchBar = (
+  search: string,
   selectedType: string,
   token: string
 ): Promise<any> => {
   return axios
     .get("https://api.spotify.com/v1/search", {
-      params: { q: searchedArtist, type: selectedType },
+      params: { q: search, type: selectedType },
       headers: {
         Authorization: `Bearer ${token}`,
       },

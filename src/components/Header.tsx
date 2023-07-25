@@ -1,9 +1,10 @@
 import { FormEvent, useEffect, useState } from "react";
 import "./Header.css";
-import { getToken, searchArtist } from "../services/spotifyApiService";
+import { getToken, searchBar } from "../services/spotifyApiService";
 import { code, fetchProfile, getAccessToken } from "../services/AuthCodePKCE";
 import { UserProfile } from "firebase/auth";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import ArtistResponse from "../models/Artist";
 
 const Header = () => {
   const CLIENT_ID = "0ede3eaa5796463393ab9c3fbe8ae90d";
@@ -13,7 +14,10 @@ const Header = () => {
 
   const [token, setToken] = useState("");
   const [search, setSearch] = useState("");
-  const [artist, setArtist] = useState("");
+  const [artistResponse, setArtistResponse] = useState<ArtistResponse | null>(
+    null
+  );
+  const [selectedType, setSelectedType] = useState([""]);
   const navigate = useNavigate();
 
   const logout = () => {
@@ -32,13 +36,18 @@ const Header = () => {
     e.preventDefault();
     navigate(`/search?${new URLSearchParams({ search: search })}`);
     // console.log(search);
-    searchArtist(search, "artist", token).then((res) => {
-      // console.log(res);
-      setArtist(res.data);
+    searchBar(search, "artist", token).then((res) => {
+      console.log(res);
+      setArtistResponse(res);
     });
 
     setSearch("");
   };
+
+  useEffect(() => {
+    console.log(artistResponse);
+    console.log(artistResponse?.artists.items[0].id);
+  }, [artistResponse]);
 
   // console.log(token);
   return (

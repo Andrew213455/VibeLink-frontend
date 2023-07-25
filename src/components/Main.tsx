@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import "./Main.css";
 import { getToken } from "../services/spotifyApiService";
-import { code, fetchProfile, getAccessToken } from "../services/AuthCodePKCE";
+import {
+  code,
+  fetchProfile,
+  getAccessToken,
+  verifier,
+} from "../services/AuthCodePKCE";
 import { UserProfile } from "../models/SpotifyUser";
 
 import Home from "./Home";
@@ -49,23 +54,19 @@ const Main = () => {
         setProfile(res);
       });
     }
-  }, [code]);
+  }, []);
 
-  const [searchParams] = useSearchParams();
-  const query = searchParams.get("search");
-  console.log(query);
+  useEffect(() => {
+    if (code !== null) {
+      getAccessToken(CLIENT_ID, code).then((res) => {
+        setUserToken(res);
+      });
+    }
+  }, [token]);
 
-  // useEffect(() => {
-  //   if (code !== null) {
-  //     getAccessToken(CLIENT_ID, code).then((res) => {
-  //       setUserToken(res);
-  //     });
-  //   }
-  // }, [token]);
+  console.log(token);
 
-  return (
-    <div className="Main">{query ? <Search query={query} /> : <Home />}</div>
-  );
+  return <div className="Main"></div>;
 };
 
 export default Main;
