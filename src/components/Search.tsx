@@ -1,25 +1,37 @@
-import { useSearchParams } from "react-router-dom";
+
 import "./Search.css";
-import { queryHelpers } from "@testing-library/react";
+
 import { FormEvent, useContext, useEffect, useState } from "react";
-import { getAlbums, searchBar } from "../services/spotifyApiService";
-import ArtistResponse, { Artists } from "../models/Artist";
+import {  searchEverything } from "../services/spotifyApiService";
+import ArtistResponse from "../models/Artist";
 import AuthContext from "../Context/AuthContext";
+import Everything from "../models/Everything";
+
+
+import PlayList from "../models/PlayList";
+
+import { AlbumResponse } from "../models/Album";
+
+import { TrackResponse } from "../models/Track";
 
 const Search = () => {
-  const [albums, setAlbums] = useState();
-  const [searchParams] = useSearchParams();
+  const [albums, setAlbums] = useState<AlbumResponse | null>(null);
+ const [artist, setArtist] = useState<ArtistResponse | null>(null);
+ const [playlist, setPlaylist] = useState<PlayList | null>(null);
+ const [tracks, setTracks] = useState<TrackResponse | null>(null)
   const [search, setSearch] = useState("");
-  const [artists, setArtists] = useState<ArtistResponse | null>(null);
+  const [everything, setEverything] = useState<Everything | null>(null);
   const { token } = useContext(AuthContext);
+  
 
   const submitHandler = (e: FormEvent) => {
     e.preventDefault();
     if (token && search) {
-      searchBar(search, "artist", token).then((res) => {
-        setArtists(res);
-        console.log(res);
+      searchEverything(search,token).then((res) => {
+        setEverything(res);
+     
       });
+
     }
     setSearch("");
   };
@@ -32,7 +44,20 @@ const Search = () => {
   //   console.log(id);
   // }, [id]);
 
-  console.log(artists);
+  useEffect(() => {
+    if (everything !== null) {
+      setAlbums(everything.albums)
+      setArtist(everything.artist)
+      setTracks(everything.tracks)
+      setPlaylist(everything.playlists)
+    }
+  }, [everything])
+  
+console.log(artist?.items);
+
+
+
+
   return (
     <div className="Search">
       <form onSubmit={submitHandler}>
@@ -45,15 +70,30 @@ const Search = () => {
         <button>Submit</button>
       </form>
       <h2>results</h2>
-      {artists?.artists.items.map((artist) => {
-        return (
-          <div>
-            {artist.images.length > 0 && (
-              <img src={artist.images[1].url} alt={artist.name} />
-            )}
+      {/* <div>
+        {artist?.items.map((artist) => {
+          return <div>
+        {artist.images.length > 0 && <img key={artist.id} src={artist.images[0].url} alt="" />}
           </div>
-        );
-      })}
+        })}
+      </div>
+      <div>
+        {albums?.album.items.map((album) => {
+          return <div>
+        {album.images.length > 0 && <img key={album.id} src={album.images[0].url} alt="" />}
+          </div>
+        })}
+      </div>
+      <div>
+        {tracks?.tracks.items.map((track) => {
+          return <div>
+        {track.album.image.length > 0 && <img key={track.id} src={track.album.image[0].url} alt="" />}
+          </div>
+        })}
+      </div>
+      <div>
+      
+      </div> */}
     </div>
   );
 };

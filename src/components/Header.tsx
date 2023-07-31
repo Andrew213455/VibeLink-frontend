@@ -1,10 +1,9 @@
-import { FormEvent, useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import "./Header.css";
-import { getToken, searchBar } from "../services/spotifyApiService";
-import { code, fetchProfile, getAccessToken } from "../services/AuthCodePKCE";
-import { UserProfile } from "firebase/auth";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import ArtistResponse from "../models/Artist";
+
+
+import { Link } from "react-router-dom";
+
 import AuthContext from "../Context/AuthContext";
 
 const Header = () => {
