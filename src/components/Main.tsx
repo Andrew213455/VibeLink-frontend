@@ -69,9 +69,9 @@ const Main = () => {
     <div className="Main">
       <footer>
         <nav>
-          <button></button>
+          <button onClick={() => Navigate(`/newsfeed`)}>NewsFeed</button>
           <button onClick={() => Navigate(`/search`)}>Search</button>
-          <button></button>
+          <button onClick={() => Navigate(`/profile`)}>Profile</button>
         </nav>
       </footer>
     </div>
