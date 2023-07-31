@@ -10,7 +10,7 @@ import {
 import { UserProfile } from "../models/SpotifyUser";
 
 import Home from "./Home";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Search from "./Search";
 
 const Main = () => {
@@ -44,6 +44,7 @@ const Main = () => {
     type: "",
     uri: "",
   });
+  const Navigate = useNavigate();
 
   useEffect(() => {
     if (code !== null) {
@@ -64,9 +65,17 @@ const Main = () => {
     }
   }, [token]);
 
-  console.log(token);
-
-  return <div className="Main"></div>;
+  return (
+    <div className="Main">
+      <footer>
+        <nav>
+          <button></button>
+          <button onClick={() => Navigate(`/search`)}>Search</button>
+          <button></button>
+        </nav>
+      </footer>
+    </div>
+  );
 };
 
 export default Main;
