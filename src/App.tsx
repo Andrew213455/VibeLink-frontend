@@ -13,6 +13,7 @@ import Home from "./components/Home";
 import Search from "./components/Search";
 import NewsFeed from "./components/NewsFeed";
 import Profile from "./components/Profile";
+import NavBar from "./components/NavBar";
 
 function App() {
   const CLIENT_ID = "+++++++++++++++++++++++++++++";
@@ -31,6 +32,7 @@ function App() {
           <Route path="/profile" element={<Profile />}/>
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
+        <NavBar />
       </Router>
     </div>
   );

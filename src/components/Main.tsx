@@ -67,13 +67,6 @@ const Main = () => {
 
   return (
     <div className="Main">
-      <footer>
-        <nav>
-          <button onClick={() => Navigate(`/newsfeed`)}>NewsFeed</button>
-          <button onClick={() => Navigate(`/search`)}>Search</button>
-          <button onClick={() => Navigate(`/profile`)}>Profile</button>
-        </nav>
-      </footer>
     </div>
   );
 };

@@ -20,6 +20,7 @@ const Search = () => {
   const [tracks, setTracks] = useState<TrackResponse | null>(null);
   const [search, setSearch] = useState("");
   const [everything, setEverything] = useState<Everything | null>(null);
+  const [trigger, setTrigger] = useState(false);
   const { token } = useContext(AuthContext);
 
   const submitHandler = (e: FormEvent) => {
@@ -29,6 +30,7 @@ const Search = () => {
         setEverything(res);
       });
     }
+    setTrigger(true)
     setSearch("");
   };
   // useEffect(() => {
@@ -57,20 +59,23 @@ const Search = () => {
 
   return (
     <div className="Search">
-      <form onSubmit={submitHandler}>
+      <form className="search-bar-container" onSubmit={submitHandler}>
         <input
           type="text"
           placeholder="enter artist here"
           onChange={(e) => setSearch(e.target.value)}
           value={search}
+          className="search-bar"
         ></input>
         <button>Submit</button>
       </form>
+
       <h2>results</h2>
-      <div className="artist-container">
+
+      <div className={trigger ? "artist-container" : ""}>
         {artist?.items.map((artist) => {
           return (
-            <div className="artist-image-container">
+            <div>
               {artist.images.length > 0 && (
                 <img
                   className="artist-image"
@@ -83,11 +88,11 @@ const Search = () => {
           );
         })}
       </div>
-      <div className="albums-container">
+      <div className={trigger ? "albums-container" : ""}>
         {albums?.items.map((album) => {
           return (
             <div className="albums">
-              <div className="albums-image-container">
+              <div>
                 {album.images.length > 0 && (
                   <img
                     className="albums-image"
@@ -102,11 +107,11 @@ const Search = () => {
           );
         })}
       </div>
-      <div className="tracks-container">
+      <div className={trigger ? "tracks-container" : ""}>
         {tracks?.items.map((track) => {
           return (
             <div className="tracks">
-              <div className="tracks-image-container">
+              <div>
                 {track.album.images.length > 0 && (
                   <img
                     className="tracks-image"
