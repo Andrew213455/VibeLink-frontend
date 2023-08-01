@@ -5,7 +5,7 @@ import {
   code,
   fetchProfile,
   getAccessToken,
-  verifier,
+
 } from "../services/AuthCodePKCE";
 import { UserProfile } from "../models/SpotifyUser";
 
