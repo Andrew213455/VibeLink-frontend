@@ -3,7 +3,7 @@ import "./Search.css";
 
 import { FormEvent, useContext, useEffect, useState } from "react";
 import {  searchEverything } from "../services/spotifyApiService";
-import ArtistResponse from "../models/Artist";
+
 import AuthContext from "../Context/AuthContext";
 import Everything from "../models/Everything";
 
@@ -13,10 +13,11 @@ import PlayList from "../models/PlayList";
 import { AlbumResponse } from "../models/Album";
 
 import { TrackResponse } from "../models/Track";
+import ArtistsResponse from "../models/Artist";
 
 const Search = () => {
   const [albums, setAlbums] = useState<AlbumResponse | null>(null);
- const [artist, setArtist] = useState<ArtistResponse | null>(null);
+ const [artist, setArtist] = useState<ArtistsResponse | null>(null);
  const [playlist, setPlaylist] = useState<PlayList | null>(null);
  const [tracks, setTracks] = useState<TrackResponse | null>(null)
   const [search, setSearch] = useState("");
@@ -47,14 +48,15 @@ const Search = () => {
   useEffect(() => {
     if (everything !== null) {
       setAlbums(everything.albums)
-      setArtist(everything.artist)
+      setArtist(everything.artists)
       setTracks(everything.tracks)
       setPlaylist(everything.playlists)
     }
   }, [everything])
   
 console.log(artist?.items);
-
+console.log(albums?.items);
+console.log(tracks?.items)
 
 
 
