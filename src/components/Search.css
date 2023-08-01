@@ -1,0 +1,46 @@
+.Search .artist-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Search .artist-image-container {
+  height: 40px;
+  width: 40px;
+}
+
+.Search .artist-image {
+  height: 100%;
+  width: 100%;
+  padding: 15px;
+}
+
+.Search .albums-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Search .albums-image-container {
+  height: 40px;
+  width: 40px;
+}
+
+.Search .albums-image {
+  height: 100%;
+  width: 100%;
+  padding: 15px;
+}
+tracks .Search .tracks-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Search .tracks-image-container {
+  height: 40px;
+  width: 40px;
+}
+
+.Search .tracks-image {
+  height: 100%;
+  width: 100%;
+  padding: 15px;
+}
