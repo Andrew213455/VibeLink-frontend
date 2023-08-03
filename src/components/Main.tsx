@@ -1,12 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Main.css";
 import { getToken } from "../services/spotifyApiService";
-import {
-  code,
-  fetchProfile,
-  getAccessToken,
-
-} from "../services/AuthCodePKCE";
+import { code, fetchProfile, getAccessToken } from "../services/AuthCodePKCE";
 import { UserProfile } from "../models/SpotifyUser";
 
 import Home from "./Home";
@@ -65,10 +60,7 @@ const Main = () => {
     }
   }, [token]);
 
-  return (
-    <div className="Main">
-    </div>
-  );
+  return <div className="Main"></div>;
 };
 
 export default Main;

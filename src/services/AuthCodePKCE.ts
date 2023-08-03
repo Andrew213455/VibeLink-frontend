@@ -3,13 +3,17 @@ import { UserProfile } from "../models/SpotifyUser";
 const clientId = "0ede3eaa5796463393ab9c3fbe8ae90d";
 const params = new URLSearchParams(window.location.search);
 export const code = params.get("code");
+// let profile = null;
 
-if (!code) {
-  redirectToAuthCodeFlow(clientId);
-} else {
-  const accessToken = await getAccessToken(clientId, code);
-  const profile = await fetchProfile(accessToken);
-}
+export const getProfile = async (): Promise<UserProfile | undefined> => {
+  if (!code) {
+    redirectToAuthCodeFlow(clientId);
+  } else {
+    const accessToken = await getAccessToken(clientId, code);
+    return await fetchProfile(accessToken);
+  }
+};
+export const profile = await getProfile();
 
 export async function redirectToAuthCodeFlow(clientId: string) {
   const verifier = generateCodeVerifier(128);
