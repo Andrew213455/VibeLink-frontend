@@ -9,6 +9,6 @@ interface Item {
   images: Images[];
 }
 
-export default interface PlayListResponse {
+export interface PlayListResponse {
   items: Item[];
 }

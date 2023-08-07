@@ -6,17 +6,16 @@ import { searchEverything } from "../services/spotifyApiService";
 import AuthContext from "../Context/AuthContext";
 import Everything from "../models/Everything";
 
-import PlayList from "../models/PlayList";
-
 import { AlbumResponse } from "../models/Album";
 
 import { TrackResponse } from "../models/Track";
 import ArtistsResponse from "../models/Artist";
+import { PlayListResponse } from "../models/PlayList";
 
 const Search = () => {
   const [albums, setAlbums] = useState<AlbumResponse | null>(null);
   const [artist, setArtist] = useState<ArtistsResponse | null>(null);
-  const [playlist, setPlaylist] = useState<PlayList | null>(null);
+  const [playlist, setPlaylist] = useState<PlayListResponse | null>(null);
   const [tracks, setTracks] = useState<TrackResponse | null>(null);
   const [search, setSearch] = useState("");
   const [everything, setEverything] = useState<Everything | null>(null);
@@ -30,7 +29,7 @@ const Search = () => {
         setEverything(res);
       });
     }
-    setTrigger(true)
+    setTrigger(true);
     setSearch("");
   };
   // useEffect(() => {
