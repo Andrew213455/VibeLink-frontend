@@ -7,6 +7,7 @@ import { getToken } from "../services/spotifyApiService";
 function AuthContextProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string>("");
+  const [artistId, setArtistId] = useState<string>("");
 
   useEffect(() => {
     // useEffect to only register once at start
@@ -19,7 +20,9 @@ function AuthContextProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, token, setToken }}>
+    <AuthContext.Provider
+      value={{ user, token, setToken, artistId, setArtistId }}
+    >
       {children}
     </AuthContext.Provider>
   );

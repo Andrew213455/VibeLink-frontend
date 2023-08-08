@@ -1,4 +1,4 @@
-import { AlbumResponse } from "./Album";
+import AlbumResponse from "./Album";
 import ArtistsResponse from "./Artist";
 import { PlayListResponse } from "./PlayList";
 
