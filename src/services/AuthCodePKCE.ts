@@ -15,6 +15,13 @@ export const getProfile = async (): Promise<UserProfile | undefined> => {
 };
 export const profile = await getProfile();
 
+export const userAccessToken = async (): Promise<string | undefined> => {
+  if (code) {
+    const userAccessToken = await getAccessToken(clientId, code);
+    return userAccessToken;
+  }
+};
+
 export async function redirectToAuthCodeFlow(clientId: string) {
   const verifier = generateCodeVerifier(128);
   const challenge = await generateCodeChallenge(verifier);

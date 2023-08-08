@@ -1,5 +1,5 @@
 import "./Profile.css";
-import { profile } from "../services/AuthCodePKCE";
+import { profile, userAccessToken } from "../services/AuthCodePKCE";
 import { useContext, useEffect, useState } from "react";
 import ArtistsResponse from "../models/Artist";
 import { getFollowedArtists } from "../services/spotifyApiService";
