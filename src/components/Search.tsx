@@ -11,6 +11,7 @@ import { AlbumResponse } from "../models/Album";
 import { TrackResponse } from "../models/Track";
 import ArtistsResponse from "../models/Artist";
 import { PlayListResponse } from "../models/PlayList";
+import { useNavigate } from "react-router";
 
 const Search = () => {
   const [albums, setAlbums] = useState<AlbumResponse | null>(null);
@@ -21,6 +22,7 @@ const Search = () => {
   const [everything, setEverything] = useState<Everything | null>(null);
   const [trigger, setTrigger] = useState(false);
   const { token } = useContext(AuthContext);
+  const Navigate = useNavigate();
 
   const submitHandler = (e: FormEvent) => {
     e.preventDefault();
@@ -32,14 +34,6 @@ const Search = () => {
     setTrigger(true);
     setSearch("");
   };
-  // useEffect(() => {
-  //   if (id && token) {
-  //     getAlbums(id, token).then((res) => {
-  //       setAlbums(res);
-  //     });
-  //   }
-  //   console.log(id);
-  // }, [id]);
 
   useEffect(() => {
     if (everything !== null) {
@@ -81,6 +75,7 @@ const Search = () => {
                   key={artist.id}
                   src={artist.images[0].url}
                   alt=""
+                  onClick={() => Navigate("/artist")}
                 />
               )}
             </div>
