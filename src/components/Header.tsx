@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import "./Header.css";
 
-
 import { Link } from "react-router-dom";
 
 import AuthContext from "../Context/AuthContext";
@@ -32,6 +31,7 @@ const Header = () => {
             <button onClick={logout}>Logout</button>
           ) : (
             <a
+              className="login"
               href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
             >
               Login to Spotify

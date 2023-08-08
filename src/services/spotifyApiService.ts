@@ -14,6 +14,17 @@ export const getAlbums = (id: string, token: string) => {
     });
 };
 
+export const getArtist = (id: string, token: string) => {
+  return axios
+    .get(`https://api.spotify.com/v1/artists/${id}`, {
+      params: { id: id, include_groups: "artist" },
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((res) => {
+      return res.data;
+    });
+};
+
 let searchString: string[] = ["artist", "playlist", "track", "album"];
 
 export const getFollowedArtists = (token: string) => {
@@ -56,6 +67,22 @@ export const getAlbumsById = async (
   return res.data;
 };
 
+export const getAlbumTracks = async (
+  id: string,
+  token: string
+): Promise<any> => {
+  const res = await axios.get(
+    `https://api.spotify.com/v1/albums/${id}/tracks`,
+    {
+      params: { id: id, limit: 50 },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return res.data;
+};
+
 export const getToken = (): Promise<string> => {
   return axios
     .post(
@@ -71,6 +98,19 @@ export const getToken = (): Promise<string> => {
     )
     .then((res) => {
       return res.data.access_token;
+    });
+};
+
+export const playTrack = async (token: string) => {
+  return axios
+    .put("https://api.spotify.com/v1/me/player/play", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+    .then((res) => {
+      return res.data;
     });
 };
 

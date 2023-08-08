@@ -5,8 +5,10 @@
   align-items: center;
   width: 100%;
   padding: 10px;
-  background-color: black;
-  color: white;
+  color: black;
+}
+.Header h1 {
+  color: black;
 }
 
 .Header .header-top {
@@ -28,4 +30,24 @@
 .Header .header-bottom input {
   width: 80%;
   padding: 10px;
+}
+
+.Header button {
+  background-color: transparent;
+  border: none;
+  padding: 10px;
+  color: black;
+}
+
+.Header .login {
+  color: black;
+  padding: 10px;
+}
+
+.Header .login:hover {
+  background: purple;
+}
+
+.Header button:hover {
+  background-color: purple;
 }

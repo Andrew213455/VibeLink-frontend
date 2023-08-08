@@ -43,11 +43,6 @@ const Search = () => {
     }
   }, [everything]);
   console.log(artistId);
-  //console.log(everything);
-  // console.log(artist?.items);
-  // console.log(albums?.items);
-  // console.log(tracks?.items);
-  console.log(playlist?.items);
 
   return (
     <div className="Search">
@@ -62,7 +57,7 @@ const Search = () => {
         <button>Submit</button>
       </form>
 
-      <h2>results</h2>
+      {artist && <h2>Artist</h2>}
 
       <div className={trigger ? "artist-container" : ""}>
         {artist?.items.map((artist, index) => {
@@ -71,19 +66,21 @@ const Search = () => {
               {artist.images.length > 0 && (
                 <img
                   className="artist-image"
-                  key={artist.id}
+                  key={index}
                   src={artist.images[0].url}
                   alt=""
                   onClick={() => {
-                    setArtistId(everything?.artists.items[index].id!);
+                    setArtistId(artist.id);
                     Navigate("/artist");
                   }}
                 />
               )}
+              <div>{artist.name}</div>
             </div>
           );
         })}
       </div>
+      {albums && <h2>Albums</h2>}
       <div className={trigger ? "albums-container" : ""}>
         {albums?.items.map((album) => {
           return (
@@ -103,6 +100,7 @@ const Search = () => {
           );
         })}
       </div>
+      {tracks && <h2>Tracks</h2>}
       <div className={trigger ? "tracks-container" : ""}>
         {tracks?.items.map((track) => {
           return (

@@ -10,6 +10,7 @@ interface Item {
   id: string;
   name: string;
   album: Album;
+  images: Images;
 }
 
 export interface TrackResponse {

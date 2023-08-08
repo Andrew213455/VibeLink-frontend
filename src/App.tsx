@@ -6,6 +6,7 @@ import {
   Navigate,
   Route,
   Routes,
+  useLocation,
 } from "react-router-dom";
 import Header from "./components/Header";
 import Main from "./components/Main";
@@ -15,19 +16,20 @@ import NewsFeed from "./components/NewsFeed";
 import Profile from "./components/Profile";
 import NavBar from "./components/NavBar";
 import Artist from "./components/Artist";
-import Album from "./components/Album";
 import Playlist from "./components/Playlist";
 import MediaPlayer from "./components/MediaPlayer";
+import Track from "./components/Track";
 
 function App() {
   const CLIENT_ID = "+++++++++++++++++++++++++++++";
   const REDIRECT_URI = "http://localhost:3000";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
+
   return (
     <div className="App">
       <Router>
-        <Header />
+        {/* <Header /> */}
         <Routes>
           <Route path="/me" element={<Home />} />
           <Route path="/" element={<Main />} />
@@ -35,9 +37,9 @@ function App() {
           <Route path="/newsfeed" element={<NewsFeed />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/artist" element={<Artist />} />
-          <Route path="/album" element={<Album />} />
           <Route path="/playlist" element={<Playlist />} />
           <Route path="/mediaplayer" element={<MediaPlayer />} />
+          <Route path="/track" element={<Track />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
         <NavBar />

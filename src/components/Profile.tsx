@@ -10,16 +10,16 @@ const Profile = () => {
     useState<ArtistsResponse | null>(null);
   const { token } = useContext(AuthContext);
   // console.log(followedArtists);
-  console.log(token);
+  console.log(profile);
 
-  useEffect(() => {
-    if (token) {
-      getFollowedArtists(token).then((res) => {
-        setFollowedArtists(res);
-      });
-    }
-    console.log(followedArtists);
-  }, [profile]);
+  // useEffect(() => {
+  //   if (token) {
+  //     getFollowedArtists(token).then((res) => {
+  //       setFollowedArtists(res);
+  //     });
+  //   }
+  //   console.log(followedArtists);
+  // }, [profile]);
 
   return (
     <div className="Profile">

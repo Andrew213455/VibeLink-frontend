@@ -1,0 +1,22 @@
+.Artist {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Artist .album-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Artist .album-container p {
+  text-align: center;
+}
+
+.Artist .album-image {
+  width: 200px;
+  height: 200px;
+}

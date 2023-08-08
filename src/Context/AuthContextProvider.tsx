@@ -8,6 +8,8 @@ function AuthContextProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string>("");
   const [artistId, setArtistId] = useState<string>("");
+  const [albumId, setAlbumId] = useState<string>("");
+  const [trackId, setTrackId] = useState<string>("");
 
   useEffect(() => {
     // useEffect to only register once at start
@@ -21,7 +23,17 @@ function AuthContextProvider({ children }: { children: ReactNode }) {
 
   return (
     <AuthContext.Provider
-      value={{ user, token, setToken, artistId, setArtistId }}
+      value={{
+        user,
+        token,
+        setToken,
+        artistId,
+        setArtistId,
+        albumId,
+        setAlbumId,
+        trackId,
+        setTrackId,
+      }}
     >
       {children}
     </AuthContext.Provider>

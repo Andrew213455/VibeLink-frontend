@@ -2,13 +2,9 @@ interface Images {
   url: string;
 }
 
-interface Item {
+export default interface SingleArtist {
   id: string;
   name: string;
   type: string;
   images: Images[];
-}
-
-export default interface ArtistsResponse {
-  items: Item[];
 }

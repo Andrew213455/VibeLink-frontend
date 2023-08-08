@@ -7,6 +7,10 @@ export interface AuthContextModel {
   setToken: (token: string) => void;
   artistId: string;
   setArtistId: (artistId: string) => void;
+  albumId: string;
+  setAlbumId: (albumId: string) => void;
+  trackId: string;
+  setTrackId: (trackId: string) => void;
 }
 
 const defaultValue: AuthContextModel = {
@@ -15,6 +19,10 @@ const defaultValue: AuthContextModel = {
   setToken: () => {},
   artistId: "",
   setArtistId: () => {},
+  albumId: "",
+  setAlbumId: () => {},
+  trackId: "",
+  setTrackId: () => {},
 };
 
 const AuthContext = createContext(defaultValue);

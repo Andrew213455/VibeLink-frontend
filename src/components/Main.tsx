@@ -41,6 +41,11 @@ const Main = () => {
   });
   const Navigate = useNavigate();
 
+  const logout = () => {
+    setToken("");
+    window.localStorage.removeItem("token");
+  };
+
   useEffect(() => {
     if (code !== null) {
       getToken().then((res) => {
@@ -60,7 +65,23 @@ const Main = () => {
     }
   }, [token]);
 
-  return <div className="Main"></div>;
+  return (
+    <div className="Main">
+      <h1>VibeLink</h1>
+      {token ? (
+        <button onClick={logout}>Logout</button>
+      ) : (
+        <a
+          className="login"
+          href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
+        >
+          Login to Spotify
+        </a>
+      )}
+      <h2>Welcome to our app!</h2>
+      <p>feel free to give me money. venmo Andrew Woodring</p>
+    </div>
+  );
 };
 
 export default Main;
