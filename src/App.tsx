@@ -14,6 +14,10 @@ import Search from "./components/Search";
 import NewsFeed from "./components/NewsFeed";
 import Profile from "./components/Profile";
 import NavBar from "./components/NavBar";
+import Artist from "./components/Artist";
+import Album from "./components/Album";
+import Playlist from "./components/Playlist";
+import MediaPlayer from "./components/MediaPlayer";
 
 function App() {
   const CLIENT_ID = "+++++++++++++++++++++++++++++";
@@ -30,6 +34,10 @@ function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/newsfeed" element={<NewsFeed />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/artist" element={<Artist />} />
+          <Route path="/album" element={<Album />} />
+          <Route path="/playlist" element={<Playlist />} />
+          <Route path="/mediaplayer" element={<MediaPlayer />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
         <NavBar />

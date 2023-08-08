@@ -6,11 +6,11 @@ import { searchEverything } from "../services/spotifyApiService";
 import AuthContext from "../Context/AuthContext";
 import Everything from "../models/Everything";
 
-import { AlbumResponse } from "../models/Album";
-
 import { TrackResponse } from "../models/Track";
 import ArtistsResponse from "../models/Artist";
 import { PlayListResponse } from "../models/PlayList";
+import { useNavigate } from "react-router";
+import AlbumResponse from "../models/Album";
 
 const Search = () => {
   const [albums, setAlbums] = useState<AlbumResponse | null>(null);
@@ -20,7 +20,8 @@ const Search = () => {
   const [search, setSearch] = useState("");
   const [everything, setEverything] = useState<Everything | null>(null);
   const [trigger, setTrigger] = useState(false);
-  const { token } = useContext(AuthContext);
+  const { token, setArtistId, artistId } = useContext(AuthContext);
+  const Navigate = useNavigate();
 
   const submitHandler = (e: FormEvent) => {
     e.preventDefault();
@@ -32,14 +33,6 @@ const Search = () => {
     setTrigger(true);
     setSearch("");
   };
-  // useEffect(() => {
-  //   if (id && token) {
-  //     getAlbums(id, token).then((res) => {
-  //       setAlbums(res);
-  //     });
-  //   }
-  //   console.log(id);
-  // }, [id]);
 
   useEffect(() => {
     if (everything !== null) {
@@ -49,7 +42,7 @@ const Search = () => {
       setPlaylist(everything.playlists);
     }
   }, [everything]);
-
+  console.log(artistId);
   //console.log(everything);
   // console.log(artist?.items);
   // console.log(albums?.items);
@@ -72,7 +65,7 @@ const Search = () => {
       <h2>results</h2>
 
       <div className={trigger ? "artist-container" : ""}>
-        {artist?.items.map((artist) => {
+        {artist?.items.map((artist, index) => {
           return (
             <div>
               {artist.images.length > 0 && (
@@ -81,6 +74,10 @@ const Search = () => {
                   key={artist.id}
                   src={artist.images[0].url}
                   alt=""
+                  onClick={() => {
+                    setArtistId(everything?.artists.items[index].id!);
+                    Navigate("/artist");
+                  }}
                 />
               )}
             </div>
