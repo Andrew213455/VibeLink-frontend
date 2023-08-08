@@ -28,8 +28,8 @@ function App() {
           <Route path="/me" element={<Home />} />
           <Route path="/" element={<Main />} />
           <Route path="/search" element={<Search />} />
-          <Route path="/newsfeed" element={<NewsFeed />}/>
-          <Route path="/profile" element={<Profile />}/>
+          <Route path="/newsfeed" element={<NewsFeed />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
         <NavBar />
