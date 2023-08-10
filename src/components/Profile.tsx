@@ -4,12 +4,41 @@ import { useContext, useEffect, useState } from "react";
 import ArtistsResponse from "../models/Artist";
 import { getFollowedArtists } from "../services/spotifyApiService";
 import AuthContext from "../Context/AuthContext";
+import { getToken } from "../services/spotifyApiService";
+import { code, fetchProfile, getAccessToken } from "../services/AuthCodePKCE";
+import { UserProfile } from "../models/SpotifyUser";
 
 const Profile = () => {
   const [followedArtists, setFollowedArtists] =
     useState<ArtistsResponse | null>(null);
   const { token } = useContext(AuthContext);
   // console.log(followedArtists);
+  const CLIENT_ID = "0ede3eaa5796463393ab9c3fbe8ae90d";
+  const REDIRECT_URI = "http://localhost:3000";
+  const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
+  const RESPONSE_TYPE = "token";
+  const [userToken, setUserToken] = useState("");
+  const [profileToken, setProfileToken] = useState("");
+
+  const logout = () => {
+    setProfileToken("");
+    window.localStorage.removeItem("token");
+  };
+  useEffect(() => {
+    if (code !== null) {
+      getToken().then((res) => {
+        setProfileToken(res);
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (code !== null) {
+      getAccessToken(CLIENT_ID, code).then((res) => {
+        setUserToken(res);
+      });
+    }
+  }, [token]);
   console.log(profile);
 
   // useEffect(() => {
@@ -24,14 +53,26 @@ const Profile = () => {
   return (
     <div className="Profile">
       <div>
+        {profileToken ? (
+          <button onClick={logout}>Logout</button>
+        ) : (
+          <a
+            className="login"
+            href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
+          >
+            Login to Spotify
+          </a>
+        )}
         {profile ? (
           <div>
             <p>
-              <img
-                className="userImage"
-                src={profile?.images[0].url || ""}
-                alt="profile"
-              />
+              {profile.images[0] && (
+                <img
+                  className="userImage"
+                  src={profile?.images[0].url || ""}
+                  alt="profile"
+                />
+              )}
 
               {profile?.display_name}
             </p>

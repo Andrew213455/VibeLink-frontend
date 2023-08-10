@@ -113,17 +113,14 @@ export const playTrack = async (token: string) => {
       return res.data;
     });
 };
-
-// export const authorizeUser = (): Promise<any> => {
-//   return axios
-//     .get("https://accounts.spotify.com/authorize", {
-//       params: {
-//         client_id: "0ede3eaa5796463393ab9c3fbe8ae90d",
-//         response_type: "code",
-//         redirect_uri: "http://localhost:3000",
-//       },
-//     })
-//     .then((res) => {
-//       return res.data;
-//     });
-// };
+export const getNewReleases = async (token: string) => {
+  return axios
+    .get("https://api.spotify.com/v1/browse/new-releases", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      return res.data;
+    });
+};
