@@ -42,7 +42,6 @@ const Search = () => {
       setPlaylist(everything.playlists);
     }
   }, [everything]);
-  console.log(artistId);
 
   return (
     <div className="Search">

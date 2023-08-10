@@ -1,5 +1,6 @@
 import axios from "axios";
 import { UserProfile } from "../models/SpotifyUser";
+import NewReleaseResponse from "../models/NewRelease";
 
 // let token = window.localStorage.getItem("token") || "";
 
@@ -113,11 +114,19 @@ export const playTrack = async (token: string) => {
       return res.data;
     });
 };
-export const getNewReleases = async (token: string) => {
+
+export const getNewReleases = async (
+  token: string
+): Promise<NewReleaseResponse> => {
   return axios
     .get("https://api.spotify.com/v1/browse/new-releases", {
       headers: {
         Authorization: `Bearer ${token}`,
+      },
+      params: {
+        limit: 10,
+        country: "US",
+        offset: 5,
       },
     })
     .then((res) => {

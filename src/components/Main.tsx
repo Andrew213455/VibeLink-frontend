@@ -1,31 +1,46 @@
 import { useContext, useEffect, useState } from "react";
 import "./Main.css";
-
-import { UserProfile } from "../models/SpotifyUser";
-
-import Home from "./Home";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import Search from "./Search";
+import { useNavigate } from "react-router-dom";
 import { getNewReleases } from "../services/spotifyApiService";
+
+import NewReleaseResponse from "../models/NewRelease";
 import AuthContext from "../Context/AuthContext";
+import { code } from "../services/AuthCodePKCE";
 
 const Main = () => {
   const Navigate = useNavigate();
-  const [newReleases, setNewReleases] = useState("");
+  const [newReleases, setNewReleases] = useState<NewReleaseResponse | null>(
+    null
+  );
   const { token } = useContext(AuthContext);
-  console.log(token);
 
   useEffect(() => {
     if (token) {
       getNewReleases(token).then((res) => {
-        console.log(res);
+        setNewReleases(res);
       });
     }
-  }, []);
+  }, [token]);
 
   return (
     <div className="Main">
       <h1>VibeLink</h1>
+      <h2>New Releases</h2>
+      <div className="new-release-box">
+        {newReleases &&
+          newReleases?.albums.items.map((release) => {
+            return (
+              <div className="new-release">
+                <img
+                  key={Math.floor(Math.random() * 60)}
+                  src={release.images[0].url}
+                  alt={release.name}
+                />
+                <p>{release.name}</p>
+              </div>
+            );
+          })}
+      </div>
     </div>
   );
 };
