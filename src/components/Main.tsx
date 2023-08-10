@@ -27,15 +27,39 @@ const Main = () => {
       <h1>VibeLink</h1>
       <h2>New Releases</h2>
       <div className="new-release-box">
-        {newReleases &&
+        {/* {newReleases &&
           newReleases?.albums.items.map((release) => {
             return (
-              <div className="new-release">
+              // <div className="new-release">
                 <img
                   key={Math.floor(Math.random() * 60)}
                   src={release.images[0].url}
                   alt={release.name}
                 />
+                <p>{release.name}</p>
+              </div>
+            );
+          })} */}
+        {newReleases &&
+          newReleases?.albums.items.map((release) => {
+            return (
+              <div className="new-release">
+                <div className="slider">
+                  <div className="wrapper">
+                    <div className="record-wrapper">
+                      <div className="record"></div>
+                    </div>
+                    <div className="record-case">
+                      <div className="image">
+                        <img
+                          key={Math.floor(Math.random() * 60)}
+                          src={release.images[0].url}
+                          alt={release.name}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <p>{release.name}</p>
               </div>
             );
