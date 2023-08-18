@@ -1,6 +1,7 @@
 import axios from "axios";
 import { UserProfile } from "../models/SpotifyUser";
 import NewReleaseResponse from "../models/NewRelease";
+import Recommended from "../models/Recommended";
 
 // let token = window.localStorage.getItem("token") || "";
 
@@ -124,9 +125,29 @@ export const getNewReleases = async (
         Authorization: `Bearer ${token}`,
       },
       params: {
-        limit: 10,
+        limit: 30,
         country: "US",
         offset: 5,
+      },
+    })
+    .then((res) => {
+      return res.data;
+    });
+};
+
+export const getRecommendations = async (
+  token: string,
+  artists: string,
+  tracks: string
+): Promise<Recommended[]> => {
+  return axios
+    .get("https://api.spotify.com/v1/recommendations", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        seed_artists: artists,
+        seed_tracks: tracks,
       },
     })
     .then((res) => {

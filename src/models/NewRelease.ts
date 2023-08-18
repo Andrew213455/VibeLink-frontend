@@ -1,3 +1,8 @@
+interface Artists {
+  id: string;
+  name: string;
+}
+
 interface Images {
   url: string;
 }
@@ -7,6 +12,8 @@ interface Item {
   name: string;
   images: Images[];
   release_date?: string;
+  album_type: string;
+  artists: Artists[];
 }
 
 interface Album {

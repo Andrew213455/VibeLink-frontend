@@ -1,3 +1,26 @@
+.Search .search-before {
+  height: 150vh;
+}
+
+.Search .search-after {
+  height: 200vh;
+}
+
+.Search .rotate {
+  transform: rotate(-90deg);
+  position: absolute;
+  margin-left: -40px;
+  margin-top: 85px;
+}
+
+.Search .rotate-after {
+  transform: rotate(-90deg);
+  position: absolute;
+  margin-left: -25px;
+  margin-top: 120px;
+  color: white;
+}
+
 .Search .search-bar-container {
   display: flex;
   justify-content: center;
@@ -167,7 +190,7 @@
   top: 15px;
   left: 0;
   box-shadow: 41px 0px 26px -36px black, 0 8px 6px -6px;
-  filter: grayscale(90%);
+  /* filter: grayscale(90%); */
   transition: all 400ms cubic-bezier(0, 0, 0.58, 1);
   animation: caseback 400ms;
   z-index: 999;
