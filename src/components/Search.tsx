@@ -36,13 +36,16 @@ const Search = () => {
       getNewReleases(token).then((res) => {
         setNewReleases(res);
       });
-      getRecommendations(
-        token,
-        "4NHQUGzhtTLFvgF5SZesLK",
-        "0c6xIDDpzE81m2q797ordA"
-      ).then((res) => {
-        console.log(res);
-      });
+      // getUsersTopArtist(token).then((res) => {
+      //   console.log(res);
+      // });
+      //   getRecommendations(
+      //     token,
+      //     "4NHQUGzhtTLFvgF5SZesLK",
+      //     "0c6xIDDpzE81m2q797ordA"
+      //   ).then((res) => {
+      //     console.log(res);
+      //   });
     }
   }, [token]);
 
@@ -65,6 +68,8 @@ const Search = () => {
       setPlaylist(everything.playlists);
     }
   }, [everything]);
+
+  console.log(token);
 
   return (
     <div className="Search">
@@ -166,29 +171,20 @@ const Search = () => {
           {artist && <h2 className="rotate-after">Artist</h2>}
           {artist?.items.map((artist, index) => {
             return (
-              <div className="new-release">
-                <div className="slider">
-                  <div className="wrapper">
-                    <div className="record-wrapper">
-                      <div className="record"></div>
-                    </div>
-                    <div className="record-case">
-                      {artist.images.length > 0 && (
-                        <img
-                          className="image"
-                          key={index}
-                          src={artist.images[0].url}
-                          alt=""
-                          onClick={() => {
-                            setArtistId(artist.id);
-                            Navigate("/artist");
-                          }}
-                        />
-                      )}
-                    </div>
-                  </div>
-                </div>
-                <div className="name">{artist.name}</div>
+              <div className="new-release ">
+                {artist.images.length > 0 && (
+                  <img
+                    className="artist-image"
+                    key={index}
+                    src={artist.images[0].url}
+                    alt=""
+                    onClick={() => {
+                      setArtistId(artist.id);
+                      Navigate("/artist");
+                    }}
+                  />
+                )}
+                <p className="name">{artist.name}</p>
               </div>
             );
           })}

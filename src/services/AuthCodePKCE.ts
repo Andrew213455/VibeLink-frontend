@@ -1,3 +1,4 @@
+import axios from "axios";
 import { UserProfile } from "../models/SpotifyUser";
 
 const clientId = "0ede3eaa5796463393ab9c3fbe8ae90d";
@@ -83,7 +84,43 @@ export async function fetchProfile(code: string): Promise<UserProfile> {
   const result = await fetch("https://api.spotify.com/v1/me", {
     method: "GET",
     headers: { Authorization: `Bearer ${code}` },
-  });
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("HTTP status " + response.status);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      localStorage.setItem("access_token", data.access_token);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 
   return await result.json();
 }
+
+export const getUsersTopArtist = async (token: string): Promise<any> => {
+  return axios
+    .get(`https://api.spotify.com/v1/me/top/artists`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      return res.data;
+    });
+};
+
+export const getUsersTopTracks = async (token: string): Promise<any> => {
+  return axios
+    .get(`https://api.spotify.com/v1/me/top/tracks`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      return res.data;
+    });
+};

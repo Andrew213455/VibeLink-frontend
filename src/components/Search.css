@@ -42,25 +42,15 @@
 
 .Search h2 {
   text-align: center;
-}
-
-.Search .welcome-box {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.Search .welcome {
-  width: 90%;
-  background-color: white;
+  color: white;
 }
 
 .Search .artist-container {
   display: flex;
-  width: 95%;
+  width: 85%;
   height: 300px;
   margin-bottom: 20px;
-  margin-left: 20px;
+  margin-left: 35px;
   font-size: 12px;
   overflow: scroll;
   overflow-y: hidden;
@@ -73,34 +63,24 @@
 
 .Search .albums-container {
   display: flex;
-  width: 95%;
+  width: 85%;
   height: 300px;
   margin-bottom: 20px;
-  margin-left: 20px;
+  margin-left: 35px;
   font-size: 12px;
   overflow: scroll;
   overflow-y: hidden;
 }
 
-.Search .albums-image {
-  height: 90px;
-  width: 90px;
-}
 .Search .tracks-container {
   display: flex;
-  width: 95%;
+  width: 85%;
   height: 300px;
   margin-bottom: 20px;
-  margin-left: 20px;
+  margin-left: 35px;
   font-size: 12px;
   overflow: scroll;
   overflow-y: hidden;
-}
-
-.Search .tracks-image {
-  height: 90px;
-  width: 90px;
-  overflow: scroll;
 }
 
 /* css before searching */
@@ -124,12 +104,11 @@
   margin: 10px;
   padding: 10px;
   height: 225px;
-  margin-left: -20px;
 }
 
 .Search .name {
   text-align: center;
-  width: 200px;
+  width: 90px;
 }
 
 .Search .new-release-box img {
