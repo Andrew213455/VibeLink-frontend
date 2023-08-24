@@ -1,0 +1,21 @@
+.NewsFeed {
+  display: flex;
+  justify-content: center;
+
+  background-color: white;
+  width: 100%;
+  height: fit-content;
+}
+
+.NewsFeed .post-container {
+  border: 1px solid black;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.NewsFeed .button-box {
+  display: flex;
+  justify-content: space-between;
+}
