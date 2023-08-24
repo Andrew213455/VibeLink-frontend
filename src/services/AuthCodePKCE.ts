@@ -26,6 +26,8 @@ export const userAccessToken = async (): Promise<string | undefined> => {
 export async function redirectToAuthCodeFlow(clientId: string) {
   const verifier = generateCodeVerifier(128);
   const challenge = await generateCodeChallenge(verifier);
+  let scope =
+    "user-follow-read user-read-private user-read-email user-top-read";
 
   localStorage.setItem("verifier", verifier);
 
@@ -33,7 +35,7 @@ export async function redirectToAuthCodeFlow(clientId: string) {
   params.append("client_id", clientId);
   params.append("response_type", "code");
   params.append("redirect_uri", "http://localhost:3000/callback");
-  params.append("scope", "user-follow-read user-read-private user-read-email ");
+  params.append("scope", scope);
   params.append("code_challenge_method", "S256");
   params.append("code_challenge", challenge);
 
@@ -70,13 +72,13 @@ export async function getAccessToken(clientId: string, code: string) {
   params.append("redirect_uri", "http://localhost:3000/callback");
   params.append("code_verifier", verifier!);
 
-  const result = await fetch("https://accounts.spotify.com/api/token", {
+  const response = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: params,
   });
 
-  const { access_token } = await result.json();
+  const access_token = await response.json();
   return access_token;
 }
 
@@ -85,6 +87,7 @@ export async function fetchProfile(code: string): Promise<UserProfile> {
     method: "GET",
     headers: { Authorization: `Bearer ${code}` },
   });
+<<<<<<< HEAD
   // .then((response) => {
   //   if (!response.ok) {
   //     throw new Error("HTTP status " + response.status);
@@ -97,6 +100,8 @@ export async function fetchProfile(code: string): Promise<UserProfile> {
   // .catch((error) => {
   //   console.error("Error:", error);
   // });
+=======
+>>>>>>> 8d6d1215ee1cc0ed7875f0a9b8dccb9391757792
 
   return await result.json();
 }
@@ -113,6 +118,24 @@ export async function fetchProfile(code: string): Promise<UserProfile> {
 //     });
 // };
 
+<<<<<<< HEAD
+=======
+// export const getTopArtists = async (
+//   accessToken: string
+// ): Promise<UserProfile | undefined> => {
+//   if (!code) {
+//     redirectToAuthCodeFlow(clientId);
+//   } else {
+//     const accessToken = await getAccessToken(clientId, code);
+//     return await getUsersTopArtist(accessToken);
+//   }
+// };
+
+// const access_token = await getAccessToken(clientId, code!);
+// export const topAritsts = await getTopArtists(access_token);
+// console.log(topAritsts);
+
+>>>>>>> 8d6d1215ee1cc0ed7875f0a9b8dccb9391757792
 // export const getUsersTopTracks = async (token: string): Promise<any> => {
 //   return axios
 //     .get(`https://api.spotify.com/v1/me/top/tracks`, {
