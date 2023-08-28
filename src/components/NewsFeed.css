@@ -1,21 +1,82 @@
 .NewsFeed {
   display: flex;
   justify-content: center;
-
-  background-color: white;
+  align-items: center;
+  flex-direction: column;
   width: 100%;
   height: fit-content;
+  padding-top: 20px;
+  padding-bottom: 80px;
+}
+
+.NewsFeed h2 {
+  font-size: 2rem;
+  text-align: center;
+  margin: 0px;
+  color: #fcedd8;
+
+  font-family: "Niconne", cursive;
+  font-weight: 700;
+  text-shadow: 1px 1px 0px #eb452b, 2px 2px 0px #efa032, 3px 3px 0px #46b59b,
+    4px 4px 0px #017e7f, 5px 5px 0px #052939, 6px 6px 0px #c11a2b,
+    7px 7px 0px #c11a2b, 7px 7px 0px #c11a2b, 8px 8px 0px #c11a2b;
 }
 
 .NewsFeed .post-container {
-  border: 1px solid black;
+  background-color: white;
+  width: 60%;
+  max-width: 500px;
+  min-width: 275px;
   padding: 20px;
   display: flex;
   justify-content: center;
   flex-direction: column;
+  border-radius: 10px;
+  margin-top: 20px;
 }
 
 .NewsFeed .button-box {
   display: flex;
   justify-content: space-between;
+  margin-top: 30px;
+}
+
+.NewsFeed .button-box button {
+  border-radius: 5px;
+  border: none;
+  width: 80px;
+}
+
+.NewsFeed .post-button {
+  padding: 20px;
+  border-radius: 10px;
+  border: none;
+}
+
+.NewsFeed .newsfeed-box {
+  margin-top: 60px;
+  background-color: white;
+  width: 60%;
+  max-width: 500px;
+  min-width: 275px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 10px;
+}
+
+.NewsFeed .single-post {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  width: 100%;
+  height: fit-content;
+  margin-top: 40px;
+}
+
+.NewsFeed .single-post img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
 }

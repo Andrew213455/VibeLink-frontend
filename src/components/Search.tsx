@@ -73,6 +73,7 @@ const Search = () => {
 
   return (
     <div className="Search">
+      <h2 className="title-top">Search</h2>
       <div className={everything === null ? "search-before" : "search-after"}>
         <form className="search-bar-container" onSubmit={submitHandler}>
           <input

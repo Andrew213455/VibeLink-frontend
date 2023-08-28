@@ -1,4 +1,4 @@
-.Main h1 {
+.Main h2 {
   font-size: 2rem;
   text-align: center;
 
@@ -9,8 +9,4 @@
   text-shadow: 1px 1px 0px #eb452b, 2px 2px 0px #efa032, 3px 3px 0px #46b59b,
     4px 4px 0px #017e7f, 5px 5px 0px #052939, 6px 6px 0px #c11a2b,
     7px 7px 0px #c11a2b, 7px 7px 0px #c11a2b, 8px 8px 0px #c11a2b;
-}
-
-.Main h2 {
-  margin-left: 20px;
 }

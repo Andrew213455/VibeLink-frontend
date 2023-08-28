@@ -12,7 +12,7 @@ const Main = () => {
 
   return (
     <div className="Main">
-      <h1>VibeLink</h1>
+      <h2>VibeLink</h2>
     </div>
   );
 };

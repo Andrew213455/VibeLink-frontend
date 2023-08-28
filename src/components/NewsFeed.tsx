@@ -3,49 +3,47 @@ import "./NewsFeed.css";
 
 import { profile } from "../services/AuthCodePKCE";
 import Post from "../models/Post";
-import { addPost } from "../services/newsFeedApiService";
+import { addPost, getAllPost } from "../services/newsFeedApiService";
+import PostBox from "./PostBox";
+import { useNavigate } from "react-router-dom";
 
 const NewsFeed = () => {
-  const [content, setContent] = useState("");
+  const Navigate = useNavigate();
+  const [posts, setPosts] = useState<Post[] | null>(null);
 
   useEffect(() => {
-    console.log(content);
-  }, [content]);
-
-  const submitHandler = async (e: FormEvent): Promise<void> => {
-    e.preventDefault();
-    const newPost: Post = {
-      from: profile!,
-      content: content,
-    };
-    addPost(newPost).then((res) => {
-      console.log(res);
-      setContent("");
+    getAllPost().then((res) => {
+      setPosts(res);
     });
-  };
+  }, []);
+
   return (
-    <div className="NewsFeed">
+    <section className="NewsFeed">
+      {/* <PostBox /> */}
+      <h2>NewsFeed</h2>
       <div className="post-container">
-        <form className="form-box" onSubmit={submitHandler}>
-          <textarea
-            className="content"
-            value={content}
-            // onClick={() => setTrigger(!trigger)}
-            onChange={(e) => {
-              setContent(e.target.value);
-            }}
-            cols={40}
-            rows={3}
-          ></textarea>
-          <div className="button-box">
-            <button type="button">playlist</button>
-            <button type="button">Track</button>
-            <button type="button">Single album</button>
-          </div>
-          <button>Post</button>
-        </form>
+        <button
+          className="post-button"
+          onClick={() => {
+            Navigate("/post");
+          }}
+        >
+          Create a Post
+        </button>
       </div>
-    </div>
+      <div className="newsfeed-box">
+        {posts !== null &&
+          posts.map((post) => {
+            return (
+              <div className="single-post">
+                <p>{post.content}</p>
+                <p>from {post.from.display_name}</p>
+                <img src={post.from.images[0].url} alt="" />
+              </div>
+            );
+          })}
+      </div>
+    </section>
   );
 };
 

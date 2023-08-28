@@ -19,6 +19,7 @@ import Artist from "./components/Artist";
 import Playlist from "./components/Playlist";
 import MediaPlayer from "./components/MediaPlayer";
 import Track from "./components/Track";
+import PostBox from "./components/PostBox";
 
 function App() {
   const CLIENT_ID = "+++++++++++++++++++++++++++++";
@@ -40,6 +41,8 @@ function App() {
           <Route path="/playlist" element={<Playlist />} />
           <Route path="/mediaplayer" element={<MediaPlayer />} />
           <Route path="/track" element={<Track />} />
+          <Route path="/post" element={<PostBox />} />
+
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
         <NavBar />
