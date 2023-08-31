@@ -1,3 +1,4 @@
+import axios from "axios";
 import { UserProfile } from "../models/SpotifyUser";
 
 const clientId = "0ede3eaa5796463393ab9c3fbe8ae90d";
@@ -87,3 +88,35 @@ export async function fetchProfile(code: string): Promise<UserProfile> {
 
   return await result.json();
 }
+
+export async function topTracks(code: string): Promise<UserProfile> {
+  const result = await fetch("https://api.spotify.com/v1/me", {
+    method: "GET",
+    headers: { Authorization: `Bearer ${code}` },
+  });
+
+  return await result.json();
+}
+
+export const getUsersPlaylist = async (
+  code: string,
+  userId: string
+): Promise<any> => {
+  return axios
+    .get(`https://api.spotify.com/v1/users/${userId}/playlists`, {
+      headers: {
+        Authorization: `Bearer ${code}`,
+      },
+      params: {
+        limit: 30,
+        country: "US",
+        offset: 5,
+        next: null,
+        previous: null,
+        total: 10,
+      },
+    })
+    .then((res) => {
+      return res.data;
+    });
+};

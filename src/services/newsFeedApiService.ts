@@ -12,7 +12,5 @@ export const getAllPost = (): Promise<Post[]> => {
 };
 
 export const getPostByUserId = (id: string): Promise<Post[] | void> => {
-  return axios.get(`${baseURL}/newsfeed/${id}`).then((res) => {
-    res.data;
-  });
+  return axios.get(`${baseURL}/newsfeed/${id}`).then((res) => res.data);
 };

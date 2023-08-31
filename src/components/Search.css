@@ -22,14 +22,14 @@
 .Search .rotate {
   transform: rotate(-90deg);
   position: absolute;
-  margin-left: -40px;
+  margin-left: -42px;
   margin-top: 85px;
 }
 
 .Search .rotate-after {
   transform: rotate(-90deg);
   position: absolute;
-  margin-left: -25px;
+  margin-left: -50px;
   margin-top: 120px;
   color: white;
 }
@@ -70,8 +70,8 @@
 }
 
 .Search .artist-image {
-  height: 90px;
-  width: 90px;
+  height: 180px;
+  width: 180px;
 }
 
 .Search .albums-container {
@@ -121,7 +121,7 @@
 
 .Search .name {
   text-align: center;
-  width: 90px;
+  width: 180px;
 }
 
 .Search .new-release-box img {
@@ -137,7 +137,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 250px;
+  width: 210px;
 }
 .Search .slider:after {
   content: " ";

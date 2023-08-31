@@ -10,3 +10,38 @@
     4px 4px 0px #017e7f, 5px 5px 0px #052939, 6px 6px 0px #c11a2b,
     7px 7px 0px #c11a2b, 7px 7px 0px #c11a2b, 8px 8px 0px #c11a2b;
 }
+
+.Profile .profile-top {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 350px;
+  width: 100%;
+  flex-direction: column;
+}
+
+.Profile .img-container img {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+}
+
+.Profile .info-container {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-wrap: wrap;
+  width: 300px;
+}
+
+.Profile .info-container p {
+  width: 150px;
+}
+
+.Profile .top-music-box {
+  height: 400px;
+}
+
+.Profile .login {
+  margin-bottom: 70px;
+}

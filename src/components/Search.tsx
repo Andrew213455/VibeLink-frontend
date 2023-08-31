@@ -127,7 +127,7 @@ const Search = () => {
         )}
         {everything === null && (
           <div className="new-release-box">
-            <h2 className="rotate">albums</h2>
+            <h2 className="rotate-after">albums</h2>
             {newReleases &&
               newReleases?.albums.items.map((release) => {
                 return (

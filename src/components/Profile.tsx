@@ -1,5 +1,9 @@
 import "./Profile.css";
-import { profile, userAccessToken } from "../services/AuthCodePKCE";
+import {
+  getUsersPlaylist,
+  profile,
+  userAccessToken,
+} from "../services/AuthCodePKCE";
 import { useContext, useEffect, useState } from "react";
 import ArtistsResponse from "../models/Artist";
 import { getFollowedArtists } from "../services/spotifyApiService";
@@ -7,6 +11,7 @@ import AuthContext from "../Context/AuthContext";
 import { getToken } from "../services/spotifyApiService";
 import { code, fetchProfile, getAccessToken } from "../services/AuthCodePKCE";
 import { UserProfile } from "../models/SpotifyUser";
+import { PlayListResponse } from "../models/PlayList";
 
 const Profile = () => {
   const [followedArtists, setFollowedArtists] =
@@ -19,6 +24,9 @@ const Profile = () => {
   const RESPONSE_TYPE = "token";
   const [userToken, setUserToken] = useState("");
   const [profileToken, setProfileToken] = useState("");
+  const [userPlaylist, setUserPlaylist] = useState<PlayListResponse | null>(
+    null
+  );
 
   const logout = () => {
     setProfileToken("");
@@ -37,9 +45,15 @@ const Profile = () => {
       getAccessToken(CLIENT_ID, code).then((res) => {
         setUserToken(res);
       });
+      if (profile) {
+        getUsersPlaylist(token, profile.id).then((res) => {
+          console.log(res);
+        });
+      }
     }
   }, [token]);
-  console.log(profile);
+
+  console.log(profile?.id);
 
   // useEffect(() => {
   //   if (token) {
@@ -54,56 +68,44 @@ const Profile = () => {
     <div className="Profile">
       <h2>Profile</h2>
       <div>
-        {profileToken ? (
-          <button onClick={logout}>Logout</button>
-        ) : (
-          <a
-            className="login"
-            href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
-          >
-            Login to Spotify
-          </a>
-        )}
         {profile ? (
-          <div>
-            <p>
+          <div className="profile-top">
+            <div className="img-container">
               {profile.images[0] && (
                 <img
                   className="userImage"
-                  src={profile?.images[0].url || ""}
+                  src={profile?.images[1].url || ""}
                   alt="profile"
                 />
               )}
-
-              {profile?.display_name}
-            </p>
-            <p>Followers:{profile?.followers.total}</p>
-            <p>Following:{}</p>
-            <p>Playlists:</p>
+            </div>
+            <div className="info-container">
+              <p>Name: {profile?.display_name}</p>
+              <p>Followers:{profile?.followers.total}</p>
+              <p>Following:{}</p>
+              <p>Playlists:</p>
+            </div>
           </div>
         ) : (
           <p>Please Sign In</p>
         )}
       </div>
-      <div>Top artitsts/tracks</div>
+      <div className="top-music-box">Top artitsts/tracks</div>
+
+      {profileToken ? (
+        <button className="login" onClick={logout}>
+          Logout
+        </button>
+      ) : (
+        <a
+          className="login"
+          href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
+        >
+          Login to Spotify
+        </a>
+      )}
     </div>
   );
 };
 
 export default Profile;
-
-// const CLIENT_ID = "0ede3eaa5796463393ab9c3fbe8ae90d";
-// useEffect(() => {
-//   (async () => {
-//     if (!code) {
-//       redirectToAuthCodeFlow(CLIENT_ID);
-//     } else {
-//       const accessToken = await getAccessToken(CLIENT_ID, code);
-//       fetchProfile(accessToken).then((res) => {
-//         setProfile(res);
-//         console.log(res);
-//         console.log(code);
-//       });
-//     }
-//   })();
-// }, []);
