@@ -47,6 +47,7 @@ const Profile = () => {
       });
       if (profile) {
         getUsersPlaylist(token, profile.id).then((res) => {
+          setUserPlaylist(res);
           console.log(res);
         });
       }
@@ -83,14 +84,31 @@ const Profile = () => {
               <p>Name: {profile?.display_name}</p>
               <p>Followers:{profile?.followers.total}</p>
               <p>Following:{}</p>
-              <p>Playlists:</p>
             </div>
           </div>
         ) : (
           <p>Please Sign In</p>
         )}
       </div>
-      <div className="top-music-box">Top artitsts/tracks</div>
+      <h3>Playlists:</h3>
+      <div className="playlist-container">
+        {profile &&
+          userPlaylist?.items.map((playlist) => {
+            return (
+              <div className="playlist">
+                <p>{playlist.name}</p>
+                <img
+                  src={playlist.images[0].url}
+                  alt="playlist"
+                  className="playlist-image"
+                />
+              </div>
+            );
+          })}
+      </div>
+      <div className="top-music-box">
+        <h3>Top artitsts/tracks</h3>
+      </div>
 
       {profileToken ? (
         <button className="login" onClick={logout}>
