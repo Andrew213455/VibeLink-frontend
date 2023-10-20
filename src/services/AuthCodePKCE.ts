@@ -14,14 +14,8 @@ export const getProfile = async (): Promise<UserProfile | undefined> => {
     return await fetchProfile(accessToken);
   }
 };
-export const profile = await getProfile();
 
-export const userAccessToken = async (): Promise<string | undefined> => {
-  if (code) {
-    const userAccessToken = await getAccessToken(clientId, code);
-    return userAccessToken;
-  }
-};
+export const profile = await getProfile();
 
 export async function redirectToAuthCodeFlow(clientId: string) {
   const verifier = generateCodeVerifier(128);
@@ -110,7 +104,7 @@ export const getUsersPlaylist = async (
       params: {
         limit: 30,
         country: "US",
-        offset: 5,
+        // offset: 1,
         next: null,
         previous: null,
         total: 10,

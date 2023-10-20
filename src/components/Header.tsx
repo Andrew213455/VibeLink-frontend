@@ -13,11 +13,8 @@ const Header = () => {
 
   const { token, setToken } = useContext(AuthContext);
 
-  const [selectedType, setSelectedType] = useState([""]);
-
   const logout = () => {
     setToken("");
-    window.localStorage.removeItem("token");
   };
 
   return (
@@ -28,7 +25,7 @@ const Header = () => {
         </Link>
         <div className="header-button">
           {token ? (
-            <button onClick={logout}>Logout</button>
+            <a onClick={logout}>Logout</a>
           ) : (
             <a
               className="login"

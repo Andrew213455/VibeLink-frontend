@@ -1,9 +1,5 @@
 import "./Profile.css";
-import {
-  getUsersPlaylist,
-  profile,
-  userAccessToken,
-} from "../services/AuthCodePKCE";
+import { getUsersPlaylist, profile } from "../services/AuthCodePKCE";
 import { useContext, useEffect, useState } from "react";
 import ArtistsResponse from "../models/Artist";
 import { getFollowedArtists } from "../services/spotifyApiService";
@@ -16,26 +12,24 @@ import { PlayListResponse } from "../models/PlayList";
 const Profile = () => {
   const [followedArtists, setFollowedArtists] =
     useState<ArtistsResponse | null>(null);
-  const { token } = useContext(AuthContext);
+  const { token, setToken } = useContext(AuthContext);
   // console.log(followedArtists);
   const CLIENT_ID = "0ede3eaa5796463393ab9c3fbe8ae90d";
   const REDIRECT_URI = "http://localhost:3000";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
   const [userToken, setUserToken] = useState("");
-  const [profileToken, setProfileToken] = useState("");
   const [userPlaylist, setUserPlaylist] = useState<PlayListResponse | null>(
     null
   );
 
   const logout = () => {
-    setProfileToken("");
-    window.localStorage.removeItem("token");
+    setToken("");
   };
   useEffect(() => {
     if (code !== null) {
       getToken().then((res) => {
-        setProfileToken(res);
+        setToken(res);
       });
     }
   }, []);
@@ -92,16 +86,14 @@ const Profile = () => {
       </div>
       <h3>Playlists:</h3>
       <div className="playlist-container">
-        {profile &&
+        {userPlaylist !== null &&
           userPlaylist?.items.map((playlist) => {
             return (
               <div className="playlist">
-                <p>{playlist.name}</p>
-                <img
-                  src={playlist.images[0].url}
-                  alt="playlist"
-                  className="playlist-image"
-                />
+                {playlist.name !== null ? <p>{playlist.name}</p> : <div></div>}
+                {playlist.images[0] && (
+                  <img src={playlist.images[0].url} alt={playlist.name} />
+                )}
               </div>
             );
           })}
@@ -110,10 +102,10 @@ const Profile = () => {
         <h3>Top artitsts/tracks</h3>
       </div>
 
-      {profileToken ? (
-        <button className="login" onClick={logout}>
+      {token ? (
+        <a className="login" onClick={logout}>
           Logout
-        </button>
+        </a>
       ) : (
         <a
           className="login"
