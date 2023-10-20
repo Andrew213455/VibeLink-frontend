@@ -11,6 +11,8 @@ export interface AuthContextModel {
   setAlbumId: (albumId: string) => void;
   trackId: string;
   setTrackId: (trackId: string) => void;
+  playlistId: string;
+  setPlaylistId: (playlistId: string) => void;
 }
 
 const defaultValue: AuthContextModel = {
@@ -23,6 +25,8 @@ const defaultValue: AuthContextModel = {
   setAlbumId: () => {},
   trackId: "",
   setTrackId: () => {},
+  playlistId: "",
+  setPlaylistId: () => {},
 };
 
 const AuthContext = createContext(defaultValue);

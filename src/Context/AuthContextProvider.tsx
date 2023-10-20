@@ -10,7 +10,7 @@ function AuthContextProvider({ children }: { children: ReactNode }) {
   const [artistId, setArtistId] = useState<string>("");
   const [albumId, setAlbumId] = useState<string>("");
   const [trackId, setTrackId] = useState<string>("");
-
+  const [playlistId, setPlaylistId] = useState<string>("");
   useEffect(() => {
     // useEffect to only register once at start
     return auth.onAuthStateChanged((newUser) => {
@@ -33,6 +33,8 @@ function AuthContextProvider({ children }: { children: ReactNode }) {
         setAlbumId,
         trackId,
         setTrackId,
+        playlistId,
+        setPlaylistId,
       }}
     >
       {children}

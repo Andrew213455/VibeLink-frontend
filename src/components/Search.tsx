@@ -25,7 +25,14 @@ const Search = () => {
   const [search, setSearch] = useState("");
   const [everything, setEverything] = useState<Everything | null>(null);
   const [trigger, setTrigger] = useState(false);
-  const { token, setArtistId, artistId, setAlbumId } = useContext(AuthContext);
+  const {
+    token,
+    setArtistId,
+    artistId,
+    setAlbumId,
+    setPlaylistId,
+    playlistId,
+  } = useContext(AuthContext);
   const Navigate = useNavigate();
   const [newReleases, setNewReleases] = useState<NewReleaseResponse | null>(
     null
@@ -69,7 +76,7 @@ const Search = () => {
     }
   }, [everything]);
 
-  console.log(token);
+  console.log(everything);
 
   return (
     <div className="Search">
@@ -254,6 +261,41 @@ const Search = () => {
                 </div>
                 <div className="name">
                   <p>{track.name}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div className={trigger ? "tracks-container" : ""}>
+          {playlist && <h2 className="rotate-after">Playlist</h2>}
+          {playlist?.items.map((playlist) => {
+            return (
+              <div
+                className="new-release"
+                onClick={() => {
+                  Navigate("/playlist");
+                  setPlaylistId(playlist.id);
+                }}
+              >
+                <div className="slider">
+                  <div className="wrapper">
+                    <div className="record-wrapper">
+                      <div className="record"></div>
+                    </div>
+                    <div className="record-case">
+                      {playlist.images.length > 0 && (
+                        <img
+                          className="image"
+                          key={playlist.id}
+                          src={playlist.images[0].url}
+                          alt=""
+                        />
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div className="name">
+                  <p>{playlist.name}</p>
                 </div>
               </div>
             );

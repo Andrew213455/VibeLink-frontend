@@ -16,6 +16,17 @@ export const getAlbums = (id: string, token: string) => {
     });
 };
 
+export const getPlaylist = (id: string, token: string) => {
+  return axios
+    .get(`https://api.spotify.com/v1/playlists/${id}`, {
+      params: { id: id },
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((res) => {
+      return res.data;
+    });
+};
+
 export const getArtist = (id: string, token: string) => {
   return axios
     .get(`https://api.spotify.com/v1/artists/${id}`, {

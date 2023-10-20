@@ -5,8 +5,8 @@ import ArtistsResponse from "../models/Artist";
 import { getFollowedArtists } from "../services/spotifyApiService";
 import AuthContext from "../Context/AuthContext";
 import { getToken } from "../services/spotifyApiService";
-import { code, fetchProfile, getAccessToken } from "../services/AuthCodePKCE";
-import { UserProfile } from "../models/SpotifyUser";
+import { code, getAccessToken } from "../services/AuthCodePKCE";
+
 import { PlayListResponse } from "../models/PlayList";
 
 const Profile = () => {
